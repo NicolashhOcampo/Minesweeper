@@ -1,0 +1,9 @@
+<div
+  class="grid w-fit h-fit"
+  [style.gridTemplateColumns]="'repeat(' + board().col + ', 1fr)'"
+  [style.gridTemplateRows]="'repeat(' + board().row + ', 1fr)'"
+>
+  @for (square of board().squares; track $index) {
+    <app-square [square]="square" (onClickSquare)="handleChangeSquare($index, $event)" />
+  }
+</div>

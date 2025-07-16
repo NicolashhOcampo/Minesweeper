@@ -1,0 +1,17 @@
+<div (click)="onClick($event)" (contextmenu)="onRightClick($event)" [ngClass]="{
+    'border border-black flex items-center justify-center size-7 text-xl font-bold bg-blue-700': true,
+    'bg-red-700': square().isMine && square().isActive,
+    'bg-gray-700': square().isActive && !square().isMine,
+    'bg-gray-500 text-black': square().isFlag
+  }">
+  @if (square().isFlag) {
+  <app-flag-icon />
+  }
+  @else if (square().isActive && square().isMine) {
+  <app-mine-icon />
+
+  }
+  @else if (square().isActive) {
+  {{square().content || ""}}
+  }
+</div>
