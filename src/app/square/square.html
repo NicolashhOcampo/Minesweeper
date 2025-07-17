@@ -1,7 +1,7 @@
 <div (click)="onClick($event)" (contextmenu)="onRightClick($event)" [ngClass]="{
-    'border border-black flex items-center justify-center size-7 text-xl font-bold bg-blue-700': true,
+    'border border-black relative flex items-center justify-center size-7 text-xl font-bold bg-blue-700': true,
     'bg-red-700': square().isMine && square().isActive,
-    'bg-gray-700': square().isActive && !square().isMine,
+    'bg-gray-700 after:size-7 after:absolute after:bg-blue-700 after:animate-scale after:top-0': square().isActive && !square().isMine,
     'bg-gray-500 text-black': square().isFlag
   }">
   @if (square().isFlag) {

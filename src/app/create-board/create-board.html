@@ -1,0 +1,30 @@
+<form class="grid grid-cols-2 gap-4 p-4 bg-gray-800 rounded-xl shadow-md w-fit text-sm" [formGroup]="boardForm"
+    (ngSubmit)="onSubmit()">
+    <!-- Filas -->
+    <label for="rows" class="flex items-center font-semibold">Filas:</label>
+    <input class="rounded-2xl bg-gray-900 p-2 pl-4" required id="rows" formControlName="rows" type="number" min="5"
+        max="20" />
+    @if (boardForm.get("rows")?.invalid) {
+    <p class="col-span-2 -mt-3 text-red-600">Invalido: min: 5 , max: 20</p>
+    }
+
+    <!-- Columnas -->
+    <label for="cols" class="flex items-center font-semibold">Columnas:</label>
+    <input class="rounded-2xl bg-gray-900 p-2 pl-4" id="cols" required formControlName="cols" type="number" min="5"
+        max="20" />
+    @if (boardForm.get("cols")?.invalid) {
+    <p class="col-span-2 -mt-3 text-red-600">Invalido: min: 5 , max: 20</p>
+    }
+
+    <!-- Minas -->
+    <label for="mines" class="flex items-center font-semibold">Minas:</label>
+    <input class="rounded-2xl bg-gray-900 p-2 pl-4" id="mines" required formControlName="mines" type="number" min="1"
+        [max]="maxMines" />
+    @if (boardForm.get("mines")?.invalid) {
+    <p class="col-span-2 -mt-3 text-red-600">Invalido: min: 1 , max: {{ maxMines }}
+    </p>
+    }
+
+    <button type="submit"
+        class="col-span-2 p-2 mt-4 text-xl rounded-2xl bg-blue-600 cursor-pointer hover:bg-blue-700">Generar</button>
+</form>

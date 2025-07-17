@@ -125,7 +125,7 @@ export class Board {
         }
     }
 
-    togleFlag(index: number) {
+    toggleFlag(index: number) {
         const newSquares = [...this.squares]
         if (newSquares[index].isActive) return
 

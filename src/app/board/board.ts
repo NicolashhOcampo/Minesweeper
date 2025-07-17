@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { Square } from "../square/square";
 import { Board as BoardClass } from '../utils/Board';
 
@@ -10,14 +10,15 @@ import { Board as BoardClass } from '../utils/Board';
 })
 export class Board {
 
-
-  board = signal<BoardClass>(new BoardClass(8, 8, 4));
+  rows = input.required<number>()
+  cols = input.required<number>()
+  mines = input.required<number>()
+  board = computed<BoardClass>(() => new BoardClass(this.rows(), this.cols(), this.mines()));
 
 
   handleChangeSquare(index: number, isRightClick: boolean) {
-    console.log(isRightClick)
     if (isRightClick) {
-      this.board().togleFlag(index)
+      this.board().toggleFlag(index)
     } else {
       this.board().activeSquare(index)
     }

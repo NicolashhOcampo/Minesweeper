@@ -1,6 +1,6 @@
-<main class="w-full max-w-2xl m-auto">
-
-  <app-board />
+<main class="w-full py-4 max-w-2xl m-auto flex flex-col gap-4 items-center">
+  <app-create-board (outputForm)="onCreateBoard($event)"/>
+  <app-board [rows]="createBoard().rows" [cols]="createBoard().cols" [mines]="createBoard().mines"/>
 </main>
 
 
