@@ -4,3 +4,5 @@ export interface Square {
     isMine: boolean
     content: number
 }
+
+export type GameStatus = 'playing' | 'won' | 'lost';

@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { MineIcon } from "../mine-icon/mine-icon";
-import { Square as S } from "../types/Square"
+import { Square as S } from "../types/Board"
 import { FlagIcon } from '../flag-icon/flag-icon';
 import { NgClass } from '@angular/common';
 

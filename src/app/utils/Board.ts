@@ -1,18 +1,27 @@
-import { Square } from "../types/Square";
+import { GameStatus, Square } from "../types/Board";
 
 export class Board {
     squares: Square[]
     row: number
     col: number
+    mines: number
+    flags: number
+    gameStatus: GameStatus
 
     constructor(row: number, col: number, countMines: number) {
         this.row = row
         this.col = col
+        this.flags = 0;
         this.squares = this.createBoard(row, col, countMines)
+        this.gameStatus = 'playing';
+        this.mines = countMines;
     }
 
     activeSquare(index: number) {
         const newSquares = [...this.squares]
+
+        if (this.gameStatus !== 'playing') return
+        if (newSquares[index].isFlag) return
 
         if (newSquares[index].isActive) {
             let countFlagsAround = 0
@@ -51,9 +60,8 @@ export class Board {
                 countFlagsAround++
             }
 
-            console.log(countFlagsAround)
 
-            if (countFlagsAround === newSquares[index].content) {
+            if (countFlagsAround >= newSquares[index].content) {
                 if (isSquareLeft && !newSquares[index - 1].isActive) {
                     this.activeSquare(index - 1)
                 }
@@ -83,10 +91,21 @@ export class Board {
             return
         }
 
-        if (newSquares[index].isFlag) return
+
 
         newSquares[index].isActive = true
         this.squares = newSquares
+
+
+        if (newSquares[index].isMine) {
+            this.gameStatus = 'lost';
+            return
+        }
+
+        if (this.squares.filter(s => s.isActive).length === this.row * this.col - this.mines) {
+            this.gameStatus = 'won';
+            return
+        }
 
         if (newSquares[index].content === 0) {
             const rowIndex = Math.floor(index / this.col);
@@ -126,12 +145,21 @@ export class Board {
     }
 
     toggleFlag(index: number) {
+        if (this.gameStatus !== 'playing') return
+        if (this.squares[index].isActive) return
+
         const newSquares = [...this.squares]
-        if (newSquares[index].isActive) return
 
         newSquares[index].isFlag = !newSquares[index].isFlag
         this.squares = newSquares
+
+        if (newSquares[index].isFlag) {
+            this.flags++
+        } else {
+            this.flags--
+        }
     }
+
 
     createBoard(row: number, col: number, countMines: number): Square[] {
 

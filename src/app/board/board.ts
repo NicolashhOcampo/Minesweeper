@@ -15,7 +15,6 @@ export class Board {
   mines = input.required<number>()
   board = computed<BoardClass>(() => new BoardClass(this.rows(), this.cols(), this.mines()));
 
-
   handleChangeSquare(index: number, isRightClick: boolean) {
     if (isRightClick) {
       this.board().toggleFlag(index)
