@@ -5,4 +5,4 @@ export interface Square {
     content: number
 }
 
-export type GameStatus = 'playing' | 'won' | 'lost';
+export type GameStatus = 'creating' | 'playing' | 'won' | 'lost';

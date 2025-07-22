@@ -1,6 +1,7 @@
 import { GameStatus, Square } from "../types/Board";
 
 export class Board {
+    id: number
     squares: Square[]
     row: number
     col: number
@@ -8,19 +9,20 @@ export class Board {
     flags: number
     gameStatus: GameStatus
 
-    constructor(row: number, col: number, countMines: number) {
+    constructor(row: number, col: number, countMines: number, id: number) {
         this.row = row
         this.col = col
         this.flags = 0;
         this.squares = this.createBoard(row, col, countMines)
-        this.gameStatus = 'playing';
+        this.gameStatus = 'creating';
         this.mines = countMines;
+        this.id = id;
     }
 
     activeSquare(index: number) {
         const newSquares = [...this.squares]
 
-        if (this.gameStatus !== 'playing') return
+        if (this.gameStatus === 'won' || this.gameStatus === 'lost') return
         if (newSquares[index].isFlag) return
 
         if (newSquares[index].isActive) {
@@ -95,7 +97,7 @@ export class Board {
 
         newSquares[index].isActive = true
         this.squares = newSquares
-
+        this.gameStatus = 'playing';
 
         if (newSquares[index].isMine) {
             this.gameStatus = 'lost';
@@ -145,7 +147,7 @@ export class Board {
     }
 
     toggleFlag(index: number) {
-        if (this.gameStatus !== 'playing') return
+        if (this.gameStatus === 'won' || this.gameStatus === 'lost') return
         if (this.squares[index].isActive) return
 
         const newSquares = [...this.squares]

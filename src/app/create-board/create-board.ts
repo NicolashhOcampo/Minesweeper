@@ -26,7 +26,7 @@ export class CreateBoard {
 
   onSubmit() {
     if(this.boardForm.valid){
-      this.outputForm.emit(this.boardForm.value as BoardConfig)
+      this.outputForm.emit({...this.boardForm.value, id: 0} as BoardConfig)
     }
   }
 

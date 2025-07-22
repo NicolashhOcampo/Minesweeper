@@ -12,13 +12,18 @@ import { BoardConfig } from './types/BoardConfig';
 })
 export class App {
 
+  nextBoardId = 0;
+
   createBoard = signal<BoardConfig>({
+    id: this.nextBoardId,
     rows: 7,
     cols: 7,
     mines: 4
   })
 
   onCreateBoard(boardConfig: BoardConfig){
-    this.createBoard.set(boardConfig)
+    console.log(boardConfig)
+    this.createBoard.set({...boardConfig, id: this.nextBoardId});
+    this.nextBoardId++;
   }
 }

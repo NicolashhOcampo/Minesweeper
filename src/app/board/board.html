@@ -1,15 +1,13 @@
 <div>
-  <div>
-    <p>Status: {{ board().gameStatus.toUpperCase() }}</p>
-    <p>{{ board().mines - board().flags }} Flags</p>
+  <div class="flex justify-between items-center mb-4">
+    
+    <p>{{formattedTime()}}</p>
+    <p class="flex items-center gap-2"><app-mine-icon /> {{board().mines - board().flags }}</p>
   </div>
-  <div
-  class="grid w-fit h-fit"
-  [style.gridTemplateColumns]="'repeat(' + board().col + ', 1fr)'"
-  [style.gridTemplateRows]="'repeat(' + board().row + ', 1fr)'"
->
-  @for (square of board().squares; track $index) {
+  <div class="grid w-fit h-fit" [style.gridTemplateColumns]="'repeat(' + board().col + ', 1fr)'"
+    [style.gridTemplateRows]="'repeat(' + board().row + ', 1fr)'">
+    @for (square of board().squares; track $index) {
     <app-square [square]="square" (onClickSquare)="handleChangeSquare($index, $event)" />
-  }
-</div>
+    }
+  </div>
 </div>

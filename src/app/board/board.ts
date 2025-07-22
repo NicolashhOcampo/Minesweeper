@@ -1,19 +1,46 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
 import { Square } from "../square/square";
 import { Board as BoardClass } from '../utils/Board';
+import { Router } from '@angular/router';
+import { MineIcon } from "../mine-icon/mine-icon";
 
 @Component({
   selector: 'app-board',
-  imports: [Square],
+  imports: [Square, MineIcon],
   templateUrl: './board.html',
   styles: ``
 })
-export class Board {
-
+export class Board implements OnInit {
   rows = input.required<number>()
   cols = input.required<number>()
   mines = input.required<number>()
-  board = computed<BoardClass>(() => new BoardClass(this.rows(), this.cols(), this.mines()));
+  boardId = input.required<number>()
+  time = signal<number>(0)
+
+  formattedTime = computed(() => {
+    const minutes = Math.floor(this.time() / 60);
+    const seconds = this.time() % 60;
+    return `${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
+  });
+
+  ngOnInit() {
+    setInterval(() => {
+      if (this.board().gameStatus === 'playing') {
+        this.time.set(this.time() + 1);
+      }
+    }, 1000);
+  }
+
+  board = computed<BoardClass>(() => new BoardClass(this.rows(), this.cols(), this.mines(), this.boardId()));
+
+  constructor() {
+    effect(() => {
+      this.board();
+      this.time.set(0);
+    })
+  }
+
+
 
   handleChangeSquare(index: number, isRightClick: boolean) {
     if (isRightClick) {
@@ -22,4 +49,5 @@ export class Board {
       this.board().activeSquare(index)
     }
   }
+
 }
