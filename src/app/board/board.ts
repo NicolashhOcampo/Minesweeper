@@ -1,4 +1,4 @@
-import { Component, computed, effect, input, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, ElementRef, input, OnInit, signal, viewChild, viewChildren } from '@angular/core';
 import { Square } from "../square/square";
 import { Board as BoardClass } from '../utils/Board';
 import { Router } from '@angular/router';
