@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Board } from './board/board';
 import { CreateBoard } from "./create-board/create-board";
 import { BoardConfig } from './types/BoardConfig';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Board, CreateBoard],
+  imports:  [Board, CreateBoard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -11,9 +11,9 @@ import {BoardConfig} from '../types/BoardConfig'
 })
 export class CreateBoard {
   boardForm = new FormGroup({
-    rows: new FormControl<number>(5),
-    cols: new FormControl<number>(5),
-    mines: new FormControl<number>(3),
+    rows: new FormControl<number>(7),
+    cols: new FormControl<number>(7),
+    mines: new FormControl<number>(4),
   })
 
   get maxMines(): number {
