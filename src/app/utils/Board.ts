@@ -7,6 +7,7 @@ export class Board {
     col: number
     mines: number
     flags: number
+    isFirstClick: boolean = true
     gameStatus: GameStatus
 
     constructor(row: number, col: number, countMines: number, id: number) {
@@ -20,10 +21,20 @@ export class Board {
     }
 
     activeSquare(index: number) {
-        const newSquares = [...this.squares]
+        let newSquares = [...this.squares]
 
         if (this.gameStatus === 'won' || this.gameStatus === 'lost') return
         if (newSquares[index].isFlag) return
+
+        if(this.isFirstClick){
+            if(newSquares[index].content !== 0){
+                do {
+                    newSquares = this.createBoard(this.row, this.col, this.mines)
+                }while (newSquares[index].content !== 0)
+            }
+
+            this.isFirstClick = false;
+        }
 
         if (newSquares[index].isActive) {
             let countFlagsAround = 0
