@@ -1,5 +1,6 @@
 <main class="w-full py-4 m-auto flex flex-col gap-4 items-center">
   <app-create-board (outputForm)="onCreateBoard($event)"/>
-  <app-board class="max-w-dvw p-2" [boardId]="createBoard().id" [rows]="createBoard().rows" [cols]="createBoard().cols" [mines]="createBoard().mines"/>
+  <app-select-default [breakDefault]="breakDefault()" (optionSelected)="updateBreakDefault($event)"/>
+  <app-board class="max-w-dvw p-2" [breakDefault]="breakDefault()" [boardId]="createBoard().id" [rows]="createBoard().rows" [cols]="createBoard().cols" [mines]="createBoard().mines"/>
 </main>
 

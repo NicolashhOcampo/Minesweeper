@@ -15,6 +15,8 @@ export class Board implements OnInit {
   cols = input.required<number>()
   mines = input.required<number>()
   boardId = input.required<number>()
+  breakDefault = input<boolean>(true)
+
   time = signal<number>(0)
 
   formattedTime = computed(() => {
@@ -43,8 +45,11 @@ export class Board implements OnInit {
 
 
   handleChangeSquare(index: number, isRightClick: boolean) {
-    if (isRightClick) {
+    if (isRightClick && this.breakDefault() || !isRightClick && !this.breakDefault()) {
       this.board().toggleFlag(index)
+      if(this.board().squares[index].isActive){
+        this.board().activeSquare(index);
+      }
     } else {
       this.board().activeSquare(index)
     }
