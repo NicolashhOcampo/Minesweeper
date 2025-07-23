@@ -1,27 +1,27 @@
-<div>
-  <div class="flex justify-between items-center mb-4">
+<div class="flex justify-between items-center mb-4">
 
-    <p>{{formattedTime()}}</p>
-    <p class="flex items-center gap-2"><app-mine-icon /> {{board().mines - board().flags }}</p>
-  </div>
-  <div class="grid w-fit h-fit" [style.gridTemplateColumns]="'repeat(' + board().col + ', 1fr)'"
-    [style.gridTemplateRows]="'repeat(' + board().row + ', 1fr)'">
+  <p>{{formattedTime()}}</p>
+  <p class="flex items-center gap-2"><app-mine-icon /> {{board().mines - board().flags }}</p>
+</div>
+<div class="overflow-auto m-auto mb-2">
+  <div class="grid" [style.gridTemplateColumns]="'repeat(' + board().col + ', 30px)'"
+    [style.gridTemplateRows]="'repeat(' + board().row + ', 30px)'">
     @for (square of board().squares; track $index) {
     <app-square [square]="square" (onClickSquare)="handleChangeSquare($index, $event)" />
     }
   </div>
-  <dialog #dialogRef [open]="board().gameStatus === 'lost' || board().gameStatus === 'won'" class="absolute top-0">
-    <div class="absolute top-0 w-dvw h-dvh bg-black/50 flex items-center justify-center">
-      <div class="bg-gray-800 w-60 h-50 text-white p-4 rounded-xl flex flex-col items-center">
-        <form method="dialog" class="w-full flex justify-end">
-          <button class="size-7 -mt-2 -mr-2 rounded-full cursor-pointer hover:bg-gray-200 hover:text-black"
-            type="submit">X</button>
-        </form>
-        <div class="mt-2 flex flex-col items-center gap-2">
-          <h2 class="text-2xl font-semibold">{{board().gameStatus === 'lost' ? 'Game Over' : 'You Won!'}}</h2>
-          <p class="text-lg">Time: {{formattedTime()}}</p>
-        </div>
+</div>
+<dialog #dialogRef [open]="board().gameStatus === 'lost' || board().gameStatus === 'won'" class="absolute top-0">
+  <div class="fixed top-0 w-dvw h-dvh bg-black/50 flex items-center justify-center">
+    <div class="bg-gray-800 w-60 h-50 text-white p-4 rounded-xl flex flex-col items-center">
+      <form method="dialog" class="w-full flex justify-end">
+        <button class="size-7 -mt-2 -mr-2 rounded-full cursor-pointer hover:bg-gray-200 hover:text-black"
+          type="submit">X</button>
+      </form>
+      <div class="mt-2 flex flex-col items-center gap-2">
+        <h2 class="text-2xl font-semibold">{{board().gameStatus === 'lost' ? 'Game Over' : 'You Won!'}}</h2>
+        <p class="text-lg">Time: {{formattedTime()}}</p>
       </div>
     </div>
-  </dialog>
-</div>
+  </div>
+</dialog>
